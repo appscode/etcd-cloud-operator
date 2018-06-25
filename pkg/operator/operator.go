@@ -28,6 +28,7 @@ import (
 
 	"github.com/kubedb/etcd-cloud-operator/pkg/etcd"
 	"github.com/kubedb/etcd-cloud-operator/pkg/providers/asg"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/asg/kubernetes"
 	"github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot"
 )
 
@@ -70,7 +71,7 @@ type Config struct {
 	UnhealthyMemberTTL time.Duration `json:"unhealthy-member-ttl"`
 
 	Etcd     etcd.EtcdConfiguration `json:"etcd"`
-	ASG      asg.Config             `json:"asg"`
+	ASG      kubernetes.Config      `json:"asg"`
 	Snapshot snapshot.Config        `json:"snapshot"`
 }
 
@@ -114,7 +115,7 @@ func (s *Operator) Run() {
 
 func (s *Operator) evaluate() error {
 	// Fetch the auto-scaling group state.
-	asgInstances, asgSelf, asgSize, err := s.asgProvider.AutoScalingGroupStatus()
+	asgInstances, asgSelf, asgSize, err := s.asgProvider.Members()
 	if err != nil {
 		return fmt.Errorf("failed to sync auto-scaling group: %v", err)
 	}

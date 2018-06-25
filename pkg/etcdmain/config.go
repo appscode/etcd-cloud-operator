@@ -84,7 +84,9 @@ type config struct {
 	printVersion bool
 	ignored      []string
 
-	sc snapshot.Config
+	sc                   snapshot.Config
+	UnhealthyMemberTTL   time.Duration `json:"unhealthy-member-ttl"`
+	AutoDisasterRecovery bool          `json:"auto-disaster-recovery"`
 }
 
 // configFlags has the set of flags used for command line parsing a Config
@@ -238,6 +240,9 @@ func newConfig() *config {
 	fs.DurationVar(&cfg.sc.TTL, "eco.snapshot-ttl", cfg.sc.TTL, "TTL for old snapshots.")
 	fs.StringVar(&cfg.sc.ConfigFile, "eco.snapshot-config-file", cfg.sc.ConfigFile, "Path to snapshot config file.")
 	fs.StringVar(&cfg.sc.Bucket, "eco.snapshot-bucket", cfg.sc.Bucket, "Name of bucket where config is stored.")
+
+	fs.DurationVar(&cfg.UnhealthyMemberTTL, "eco.unhealthy-member-ttl", cfg.UnhealthyMemberTTL, "The time after which, an unhealthy member will be removed from the cluster.")
+	fs.BoolVar(&cfg.AutoDisasterRecovery, "eco.auto-disaster-recovery", cfg.AutoDisasterRecovery, "Defines whether the operator will attempt to seed a new cluster from a snapshot after the managed cluster has lost quorum")
 
 	return cfg
 }
