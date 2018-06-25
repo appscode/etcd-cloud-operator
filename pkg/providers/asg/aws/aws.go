@@ -24,7 +24,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/autoscaling"
 	"github.com/aws/aws-sdk-go/service/ec2"
-	"github.com/quentin-m/etcd-cloud-operator/pkg/providers/asg"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/asg"
 )
 
 func init() {

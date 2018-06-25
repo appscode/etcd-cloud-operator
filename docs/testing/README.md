@@ -33,8 +33,8 @@ ssh -A ubuntu@<ubuntu instance's address>
 sudo -E su
 docker exec -it $(docker ps|grep tester|awk '{print $1}') bash
 
-cd /go/src/github.com/quentin-m/etcd-cloud-operator/docs/testing/
-go install -v github.com/quentin-m/etcd-cloud-operator/cmd/tester && tester -config=config.yaml -log-level=debug
+cd /go/src/github.com/kubedb/etcd-cloud-operator/docs/testing/
+go install -v github.com/kubedb/etcd-cloud-operator/cmd/tester && tester -config=config.yaml -log-level=debug
 ```
 
 ```

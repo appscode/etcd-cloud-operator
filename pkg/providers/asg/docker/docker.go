@@ -19,8 +19,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/quentin-m/etcd-cloud-operator/pkg/providers"
-	"github.com/quentin-m/etcd-cloud-operator/pkg/providers/asg"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/asg"
 )
 
 func init() {
