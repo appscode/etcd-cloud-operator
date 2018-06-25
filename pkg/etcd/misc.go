@@ -24,7 +24,7 @@ import (
 
 	"github.com/coreos/etcd/pkg/transport"
 
-	"github.com/quentin-m/etcd-cloud-operator/pkg/providers/snapshot"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot"
 )
 
 const (

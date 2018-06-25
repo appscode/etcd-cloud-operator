@@ -23,7 +23,7 @@ import (
 	"github.com/coreos/pkg/capnslog"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/quentin-m/etcd-cloud-operator/pkg/tester"
+	"github.com/kubedb/etcd-cloud-operator/pkg/tester"
 )
 
 func main() {

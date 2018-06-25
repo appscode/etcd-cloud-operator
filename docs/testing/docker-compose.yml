@@ -12,7 +12,7 @@ services:
       - 8000:8000
     volumes:
       - $SSH_AUTH_SOCK:/tmp/ssh-agent
-      - /home/ubuntu:/go/src/github.com/quentin-m/etcd-cloud-operator
+      - /home/ubuntu:/go/src/github.com/kubedb/etcd-cloud-operator
     environment:
       SSH_AUTH_SOCK: '/tmp/ssh-agent'
 

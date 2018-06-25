@@ -30,8 +30,8 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/quentin-m/etcd-cloud-operator/pkg/providers"
-	"github.com/quentin-m/etcd-cloud-operator/pkg/providers/snapshot"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot"
 )
 
 func init() {

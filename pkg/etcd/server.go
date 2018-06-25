@@ -30,8 +30,8 @@ import (
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc/grpclog"
 
-	"github.com/quentin-m/etcd-cloud-operator/pkg/providers/snapshot"
-	_ "github.com/quentin-m/etcd-cloud-operator/pkg/providers/snapshot/etcd"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot"
+	_ "github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot/etcd"
 )
 
 var ErrMemberRevisionTooOld = errors.New("member revision older than the minimum desired revision")
