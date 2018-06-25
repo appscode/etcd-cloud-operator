@@ -19,9 +19,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/quentin-m/etcd-cloud-operator/pkg/etcd"
-	"github.com/quentin-m/etcd-cloud-operator/pkg/operator"
-	"github.com/quentin-m/etcd-cloud-operator/pkg/providers/snapshot"
+	"github.com/kubedb/etcd-cloud-operator/pkg/etcd"
+	"github.com/kubedb/etcd-cloud-operator/pkg/operator"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 )

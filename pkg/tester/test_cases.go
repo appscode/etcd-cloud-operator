@@ -19,7 +19,7 @@ import (
 	"sync"
 
 	"github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/quentin-m/etcd-cloud-operator/pkg/etcd"
+	"github.com/kubedb/etcd-cloud-operator/pkg/etcd"
 )
 
 type failureInjectorConfig struct {

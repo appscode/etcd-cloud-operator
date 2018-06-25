@@ -26,9 +26,9 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/quentin-m/etcd-cloud-operator/pkg/etcd"
-	"github.com/quentin-m/etcd-cloud-operator/pkg/providers/asg"
-	"github.com/quentin-m/etcd-cloud-operator/pkg/providers/snapshot"
+	"github.com/kubedb/etcd-cloud-operator/pkg/etcd"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/asg"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot"
 )
 
 const (
@@ -181,7 +181,7 @@ func (s *Operator) execute() error {
 	case !s.etcdHealthy && !s.etcdRunning && (s.states["START"] != s.clusterSize || !s.isSeeder):
 		if s.state != "START" {
 			var err error
-			if s.etcdSnapshot, err = s.server.SnapshotInfo(); err != nil && err != snapshot.ErrNoSnapshot{
+			if s.etcdSnapshot, err = s.server.SnapshotInfo(); err != nil && err != snapshot.ErrNoSnapshot {
 				return err
 			}
 		}

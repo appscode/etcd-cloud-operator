@@ -27,7 +27,7 @@ import (
 
 	"github.com/coreos/etcd/etcdserver/etcdserverpb"
 
-	"github.com/quentin-m/etcd-cloud-operator/pkg/etcd"
+	"github.com/kubedb/etcd-cloud-operator/pkg/etcd"
 )
 
 func isHealthy(c *etcd.Client, clusterSize int) (uint64, error) {

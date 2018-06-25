@@ -1,6 +1,6 @@
 FROM golang:1.9-alpine AS build-env
 
-WORKDIR /go/src/github.com/quentin-m/etcd-cloud-operator
+WORKDIR /go/src/github.com/kubedb/etcd-cloud-operator
 
 # Install & Cache dependencies
 RUN apk add --no-cache git jq && \
@@ -24,13 +24,13 @@ RUN glide install --strip-vendor && yaml2json < glide.lock | \
 
 # Fetch etcdctl
 COPY . .
-RUN go-wrapper install github.com/quentin-m/etcd-cloud-operator/cmd/operator
-RUN go-wrapper install github.com/quentin-m/etcd-cloud-operator/cmd/tester
+RUN go-wrapper install github.com/kubedb/etcd-cloud-operator/cmd/operator
+RUN go-wrapper install github.com/kubedb/etcd-cloud-operator/cmd/tester
 
 # Install ECO
 COPY . .
-RUN go-wrapper install github.com/quentin-m/etcd-cloud-operator/cmd/operator
-RUN go-wrapper install github.com/quentin-m/etcd-cloud-operator/cmd/tester
+RUN go-wrapper install github.com/kubedb/etcd-cloud-operator/cmd/operator
+RUN go-wrapper install github.com/kubedb/etcd-cloud-operator/cmd/tester
 
 # Copy ECO and etcdctl into an Alpine Linux container image.
 FROM alpine

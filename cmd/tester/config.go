@@ -21,7 +21,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 
-	"github.com/quentin-m/etcd-cloud-operator/pkg/tester"
+	"github.com/kubedb/etcd-cloud-operator/pkg/tester"
 )
 
 // config represents a YAML configuration file that namespaces all ECO tester configuration under the

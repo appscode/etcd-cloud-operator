@@ -25,9 +25,9 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/quentin-m/etcd-cloud-operator/pkg/etcd"
-	"github.com/quentin-m/etcd-cloud-operator/pkg/providers/asg"
-	"github.com/quentin-m/etcd-cloud-operator/pkg/providers/snapshot"
+	"github.com/kubedb/etcd-cloud-operator/pkg/etcd"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/asg"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot"
 )
 
 const (

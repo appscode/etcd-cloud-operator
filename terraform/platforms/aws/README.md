@@ -98,7 +98,7 @@ relevant to your infrastructure:
 
 ```
 module "eco" {
-  source = "github.com/quentin-m/etcd-cloud-operator//terraform/platforms/aws?ref=v3.3.3"
+  source = "github.com/kubedb/etcd-cloud-operator//terraform/platforms/aws?ref=v3.3.3"
 
   name = "eco-example"
   size = "3"
