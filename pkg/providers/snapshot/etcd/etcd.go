@@ -38,7 +38,7 @@ type etcd struct {
 }
 
 type config struct {
-	DataDir string `yaml:"data-dir"`
+	DataDir string `json:"data-dir"`
 }
 
 func (f *etcd) Configure(providerConfig snapshot.Config) error {

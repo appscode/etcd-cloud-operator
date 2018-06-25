@@ -43,14 +43,15 @@ type status struct {
 }
 
 func initProviders(cfg Config) (asg.Provider, snapshot.Provider) {
-	if cfg.ASG.Provider == "" {
-		log.Fatal("no auto-scaling group provider configuration given")
-	}
-	asgProvider, ok := asg.AsMap()[cfg.ASG.Provider]
+	asgProvider, ok := asg.AsMap()["kubernetes"]
 	if !ok {
-		log.Fatalf("unknown auto-scaling group provider %q, available providers: %v", cfg.ASG.Provider, asg.AsList())
+		log.Fatalf("unknown auto-scaling group provider %q, available providers: %v", "kubernetes", asg.AsList())
 	}
-	if err := asgProvider.Configure(cfg.ASG); err != nil {
+	if err := asgProvider.Configure(asg.Config{
+		Params: map[string]interface{}{
+			"membership-file": cfg.ASG.MembershipFile,
+		},
+	}); err != nil {
 		log.WithError(err).Fatal("failed to configure auto-scaling group provider")
 	}
 

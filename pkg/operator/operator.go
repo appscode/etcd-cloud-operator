@@ -28,6 +28,7 @@ import (
 
 	"github.com/kubedb/etcd-cloud-operator/pkg/etcd"
 	"github.com/kubedb/etcd-cloud-operator/pkg/providers/asg"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/asg/kubernetes"
 	"github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot"
 )
 
@@ -67,11 +68,11 @@ type Operator struct {
 
 // Config is the global configuration for an instance of ECO.
 type Config struct {
-	UnhealthyMemberTTL time.Duration `yaml:"unhealthy-member-ttl"`
+	UnhealthyMemberTTL time.Duration `json:"unhealthy-member-ttl"`
 
-	Etcd     etcd.EtcdConfiguration `yaml:"etcd"`
-	ASG      asg.Config             `yaml:"asg"`
-	Snapshot snapshot.Config        `yaml:"snapshot"`
+	Etcd     etcd.EtcdConfiguration `json:"etcd"`
+	ASG      kubernetes.Config      `json:"asg"`
+	Snapshot snapshot.Config        `json:"snapshot"`
 }
 
 func New(cfg Config) *Operator {
@@ -114,7 +115,7 @@ func (s *Operator) Run() {
 
 func (s *Operator) evaluate() error {
 	// Fetch the auto-scaling group state.
-	asgInstances, asgSelf, asgSize, err := s.asgProvider.AutoScalingGroupStatus()
+	asgInstances, asgSelf, asgSize, err := s.asgProvider.Members()
 	if err != nil {
 		return fmt.Errorf("failed to sync auto-scaling group: %v", err)
 	}

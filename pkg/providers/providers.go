@@ -17,8 +17,7 @@ package providers
 import (
 	"reflect"
 	"unsafe"
-
-	"gopkg.in/yaml.v2"
+	"github.com/ghodss/yaml"
 )
 
 func ParseParams(params map[string]interface{}, cfg interface{}) error {

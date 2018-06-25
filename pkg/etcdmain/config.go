@@ -32,6 +32,7 @@ import (
 	"github.com/coreos/etcd/version"
 
 	"github.com/ghodss/yaml"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/asg/kubernetes"
 	"github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot"
 )
 
@@ -84,6 +85,7 @@ type config struct {
 	printVersion bool
 	ignored      []string
 
+	kc                   kubernetes.Config
 	sc                   snapshot.Config
 	UnhealthyMemberTTL   time.Duration `json:"unhealthy-member-ttl"`
 	AutoDisasterRecovery bool          `json:"auto-disaster-recovery"`
@@ -234,8 +236,11 @@ func newConfig() *config {
 		fs.Var(&flags.IgnoredFlag{Name: f}, f, "")
 	}
 
+	// asg provider
+	fs.StringVar(&cfg.kc.MembershipFile, "eco.membership-file", cfg.kc.MembershipFile, "Path to membership file.")
+
 	// snapshot
-	fs.StringVar(&cfg.sc.Provider, "sco.snapshot-provider", cfg.sc.Provider, "Name of snapshot provider.")
+	fs.StringVar(&cfg.sc.Provider, "eco.snapshot-provider", cfg.sc.Provider, "Name of snapshot provider.")
 	fs.DurationVar(&cfg.sc.Interval, "eco.snapshot-interval", cfg.sc.Interval, "The interval between snapshots.")
 	fs.DurationVar(&cfg.sc.TTL, "eco.snapshot-ttl", cfg.sc.TTL, "TTL for old snapshots.")
 	fs.StringVar(&cfg.sc.ConfigFile, "eco.snapshot-config-file", cfg.sc.ConfigFile, "Path to snapshot config file.")
