@@ -36,8 +36,8 @@ type Provider interface {
 
 // Config represents the configuration of the auto-scaling group provider.
 type Config struct {
-	Provider string                 `yaml:"provider"`
-	Params   map[string]interface{} `yaml:",inline"`
+	Provider string                 `json:"provider"`
+	Params   map[string]interface{} `json:",inline"`
 }
 
 // Register makes a Provider available by the provided name.

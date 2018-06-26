@@ -39,11 +39,11 @@ type Provider interface {
 
 // Config represents the configuration of the snapshot provider.
 type Config struct {
-	Interval time.Duration `yaml:"interval"`
-	TTL      time.Duration `yaml:"ttl"`
+	Interval time.Duration `json:"snapshot-interval"`
+	TTL      time.Duration `json:"snapshot-ttl"`
 
-	Provider string                 `yaml:"provider"`
-	Params   map[string]interface{} `yaml:",inline"`
+	Provider string                 `json:"snapshot-provider"`
+	Params   map[string]interface{} `json:",inline"`
 }
 
 // Register makes a Provider available by the provided name.

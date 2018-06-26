@@ -67,11 +67,11 @@ type Operator struct {
 
 // Config is the global configuration for an instance of ECO.
 type Config struct {
-	UnhealthyMemberTTL time.Duration `yaml:"unhealthy-member-ttl"`
+	UnhealthyMemberTTL time.Duration `json:"unhealthy-member-ttl"`
 
-	Etcd     etcd.EtcdConfiguration `yaml:"etcd"`
-	ASG      asg.Config             `yaml:"asg"`
-	Snapshot snapshot.Config        `yaml:"snapshot"`
+	Etcd     etcd.EtcdConfiguration `json:"etcd"`
+	ASG      asg.Config             `json:"asg"`
+	Snapshot snapshot.Config        `json:"snapshot"`
 }
 
 func New(cfg Config) *Operator {

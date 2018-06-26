@@ -27,7 +27,7 @@ import (
 // config represents a YAML configuration file that namespaces all ECO tester configuration under the
 // top-level "eco-tester" key.
 type config struct {
-	ECOTester tester.Config `yaml:"eco-tester"`
+	ECOTester tester.Config `json:"eco-tester"`
 }
 
 // loadConfig is a shortcut to open a file, read it, and generate a
