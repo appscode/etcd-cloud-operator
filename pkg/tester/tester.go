@@ -26,14 +26,14 @@ import (
 
 // Config is the global configuration for an instance of ECO.
 type Config struct {
-	Cluster Cluster `yaml:"cluster"`
+	Cluster Cluster `json:"cluster"`
 }
 
 type Cluster struct {
-	Address string `yaml:"address"`
-	Size    int    `yaml:"size"`
+	Address string `json:"address"`
+	Size    int    `json:"size"`
 
-	TLS etcd.SecurityConfig `yaml:"tls"`
+	TLS etcd.SecurityConfig `json:"tls"`
 }
 
 func Run(cfg Config) {

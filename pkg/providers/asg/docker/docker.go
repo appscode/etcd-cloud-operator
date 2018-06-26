@@ -32,8 +32,8 @@ type docker struct {
 }
 
 type config struct {
-	Size       int    `yaml:"size"`
-	NameFilter string `yaml:"name-filter"`
+	Size       int    `json:"size"`
+	NameFilter string `json:"name-filter"`
 }
 
 func (d *docker) Configure(providerConfig asg.Config) error {

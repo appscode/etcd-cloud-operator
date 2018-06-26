@@ -44,7 +44,7 @@ type s3 struct {
 }
 
 type config struct {
-	Bucket string `yaml:"bucket"`
+	Bucket string `json:"bucket"`
 }
 
 func (s *s3) Configure(providerConfig snapshot.Config) error {

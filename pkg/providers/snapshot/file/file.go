@@ -39,7 +39,7 @@ type file struct {
 }
 
 type config struct {
-	Dir string `yaml:"dir"`
+	Dir string `json:"dir"`
 }
 
 func (f *file) Configure(providerConfig snapshot.Config) error {

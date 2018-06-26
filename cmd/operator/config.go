@@ -29,7 +29,7 @@ import (
 // config represents a YAML configuration file that namespaces all ECO
 // configuration under the top-level "eco" key.
 type config struct {
-	ECO operator.Config `yaml:"eco"`
+	ECO operator.Config `json:"eco"`
 }
 
 // defaultConfig is a configuration that can be used as a fallback value.

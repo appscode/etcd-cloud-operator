@@ -40,20 +40,20 @@ const (
 // EtcdConfiguration contains the configuration related to the underlying etcd
 // server.
 type EtcdConfiguration struct {
-	AdvertiseAddress        string         `yaml:"advertise-address"`
-	DataDir                 string         `yaml:"data-dir"`
-	ClientTransportSecurity SecurityConfig `yaml:"client-transport-security"`
-	PeerTransportSecurity   SecurityConfig `yaml:"peer-transport-security"`
-	BackendQuota            int64          `yaml:"backend-quota"`
+	AdvertiseAddress        string         `json:"advertise-address"`
+	DataDir                 string         `json:"data-dir"`
+	ClientTransportSecurity SecurityConfig `json:"client-transport-security"`
+	PeerTransportSecurity   SecurityConfig `json:"peer-transport-security"`
+	BackendQuota            int64          `json:"backend-quota"`
 }
 
 type SecurityConfig struct {
-	CAFile        string `yaml:"ca-file"`
-	CertFile      string `yaml:"cert-file"`
-	KeyFile       string `yaml:"key-file"`
-	CertAuth      bool   `yaml:"client-cert-auth"`
-	TrustedCAFile string `yaml:"trusted-ca-file"`
-	AutoTLS       bool   `yaml:"auto-tls"`
+	CAFile        string `json:"ca-file"`
+	CertFile      string `json:"cert-file"`
+	KeyFile       string `json:"key-file"`
+	CertAuth      bool   `json:"client-cert-auth"`
+	TrustedCAFile string `json:"trusted-ca-file"`
+	AutoTLS       bool   `json:"auto-tls"`
 }
 
 func (sc SecurityConfig) TLSInfo() transport.TLSInfo {
