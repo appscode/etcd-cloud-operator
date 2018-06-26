@@ -24,6 +24,7 @@ import (
 	"os"
 	"runtime"
 	"strings"
+	"time"
 
 	"github.com/coreos/etcd/embed"
 	"github.com/coreos/etcd/pkg/flags"
@@ -31,6 +32,7 @@ import (
 	"github.com/coreos/etcd/version"
 
 	"github.com/ghodss/yaml"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot"
 )
 
 var (
@@ -81,6 +83,8 @@ type config struct {
 	configFile   string
 	printVersion bool
 	ignored      []string
+
+	sc snapshot.Config
 }
 
 // configFlags has the set of flags used for command line parsing a Config
@@ -102,6 +106,10 @@ func newConfig() *config {
 			ProxyWriteTimeoutMs:    5000,
 		},
 		ignored: ignored,
+		sc: snapshot.Config{
+			Interval: 30 * time.Minute,
+			TTL:      24 * time.Hour,
+		},
 	}
 	cfg.cf = configFlags{
 		flagSet: flag.NewFlagSet("etcd", flag.ContinueOnError),
@@ -223,6 +231,14 @@ func newConfig() *config {
 	for _, f := range cfg.ignored {
 		fs.Var(&flags.IgnoredFlag{Name: f}, f, "")
 	}
+
+	// snapshot
+	fs.StringVar(&cfg.sc.Provider, "eco.snapshot-provider", cfg.sc.Provider, "Name of snapshot provider.")
+	fs.DurationVar(&cfg.sc.Interval, "eco.snapshot-interval", cfg.sc.Interval, "The interval between snapshots.")
+	fs.DurationVar(&cfg.sc.TTL, "eco.snapshot-ttl", cfg.sc.TTL, "TTL for old snapshots.")
+	fs.StringVar(&cfg.sc.ConfigFile, "eco.snapshot-config-file", cfg.sc.ConfigFile, "Path to snapshot config file.")
+	fs.StringVar(&cfg.sc.Bucket, "eco.snapshot-bucket", cfg.sc.Bucket, "Name of bucket where config is stored.")
+
 	return cfg
 }
 
