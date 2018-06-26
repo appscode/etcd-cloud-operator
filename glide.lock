@@ -1,6 +1,24 @@
-hash: c325581fdffd9a26cf904878dd58db15484f1ca36dd49e81eb734bac87cf38b7
-updated: 2018-06-25T15:24:11.365039496-07:00
+hash: 8266f0336980d0cd85c03c659e4f50a48c7d495e3eb069089e66183de84b12d2
+updated: 2018-06-26T15:28:42.215011547-07:00
 imports:
+- name: cloud.google.com/go
+  version: fe3d41e1ecb2ce36ad3a979037c9b9a2b726226f
+- name: github.com/appscode/go
+  version: 578091d435e848d79527d8b911fdf1dd5423b227
+  subpackages:
+  - context
+  - encoding/yaml
+  - log
+- name: github.com/appscode/osm
+  version: a5b59095bc83b037afae084523b1411fedffc38f
+  subpackages:
+  - context
+- name: github.com/aws/aws-sdk-go
+  version: 760741802ad40f49ae9fc4a69ef6706d2527d62e
+- name: github.com/Azure/azure-sdk-for-go
+  version: f111fc2fa3861c5fdced76cae4c9c71821969577
+- name: github.com/Azure/go-autorest
+  version: d4e6b95c12a08b4de2d48b45d5b4d594e5d32fab
 - name: github.com/beorn7/perks
   version: 3ac7bf7a47d159a033b107610db8a1b6575507a4
   subpackages:
@@ -112,6 +130,8 @@ imports:
   - gogoproto
   - proto
   - protoc-gen-gogo/descriptor
+- name: github.com/golang/glog
+  version: 44145f04b68cf362d9c4df2182967c2275eaefed
 - name: github.com/golang/groupcache
   version: 02826c3e79038b59d737d3b1c0a1d937f71a4433
   subpackages:
@@ -128,8 +148,14 @@ imports:
   - ptypes/timestamp
 - name: github.com/google/btree
   version: 925471ac9e2131377a91e1595defec898166fe49
+- name: github.com/google/uuid
+  version: 8c31c18f31ede9fc8eae72290a7e7a8064e9b3e3
 - name: github.com/gorilla/websocket
   version: 4201258b820c74ac8e6922fc9e6b52f71fe46f8d
+- name: github.com/graymeta/stow
+  version: 749bd5039731d827684b5d49a59b01d4c5316b65
+  repo: https://github.com/appscode/stow.git
+  vcs: git
 - name: github.com/grpc-ecosystem/go-grpc-prometheus
   version: 0dafe0d496ea71181bf2dd039e7e3f44b6bd11a7
 - name: github.com/grpc-ecosystem/grpc-gateway
@@ -220,6 +246,10 @@ imports:
   version: c06e80d9300e4443158a03817b8a8cb37d230320
   subpackages:
   - rate
+- name: google.golang.org/api
+  version: 3639d6d93f377f39a1de765fa4ef37b3c7ca8bd9
+  subpackages:
+  - storage/v1
 - name: google.golang.org/genproto
   version: 09f6ed296fc66555a25fe4ce95173148778dfa85
   subpackages:

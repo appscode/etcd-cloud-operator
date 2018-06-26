@@ -13,3 +13,19 @@ import:
   version: v0.0.3
 - package: github.com/spf13/pflag
   version: v1.0.1
+- package: github.com/appscode/osm
+  version: 0.7.1
+- package: github.com/graymeta/stow
+  repo: https://github.com/appscode/stow.git
+  vcs: git
+  version: master
+- package: github.com/Azure/azure-sdk-for-go
+  version: v12.4.0-beta
+- package: github.com/Azure/go-autorest
+  version: v9.9.0
+- package: github.com/aws/aws-sdk-go
+  version: v1.12.7
+- package: google.golang.org/api/storage/v1
+  version: master
+- package: cloud.google.com/go
+  version: v0.2.0
