@@ -24,6 +24,7 @@ import (
 	"os"
 	"runtime"
 	"strings"
+	"time"
 
 	"github.com/coreos/etcd/embed"
 	"github.com/coreos/etcd/pkg/flags"
@@ -31,6 +32,7 @@ import (
 	"github.com/coreos/etcd/version"
 
 	"github.com/ghodss/yaml"
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot"
 )
 
 var (
@@ -81,6 +83,10 @@ type config struct {
 	configFile   string
 	printVersion bool
 	ignored      []string
+
+	sc                   snapshot.Config
+	UnhealthyMemberTTL   time.Duration `json:"unhealthy-member-ttl"`
+	AutoDisasterRecovery bool          `json:"auto-disaster-recovery"`
 }
 
 // configFlags has the set of flags used for command line parsing a Config
@@ -102,6 +108,10 @@ func newConfig() *config {
 			ProxyWriteTimeoutMs:    5000,
 		},
 		ignored: ignored,
+		sc: snapshot.Config{
+			Interval: 30 * time.Minute,
+			TTL:      24 * time.Hour,
+		},
 	}
 	cfg.cf = configFlags{
 		flagSet: flag.NewFlagSet("etcd", flag.ContinueOnError),
@@ -223,6 +233,15 @@ func newConfig() *config {
 	for _, f := range cfg.ignored {
 		fs.Var(&flags.IgnoredFlag{Name: f}, f, "")
 	}
+
+	// snapshot
+	fs.StringVar(&cfg.sc.Provider, "sco.snapshot-provider", cfg.sc.Provider, "Name of snapshot provider.")
+	fs.DurationVar(&cfg.sc.Interval, "eco.snapshot-interval", cfg.sc.Interval, "The interval between snapshots.")
+	fs.DurationVar(&cfg.sc.TTL, "eco.snapshot-ttl", cfg.sc.TTL, "TTL for old snapshots.")
+
+	fs.DurationVar(&cfg.UnhealthyMemberTTL, "eco.unhealthy-member-ttl", cfg.UnhealthyMemberTTL, "The time after which, an unhealthy member will be removed from the cluster.")
+	fs.BoolVar(&cfg.AutoDisasterRecovery, "eco.auto-disaster-recovery", cfg.AutoDisasterRecovery, "Defines whether the operator will attempt to seed a new cluster from a snapshot after the managed cluster has lost quorum")
+
 	return cfg
 }
 

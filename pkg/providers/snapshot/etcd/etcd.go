@@ -115,5 +115,6 @@ func (f *etcd) Get(metadata *snapshot.Metadata) (string, bool, error) {
 }
 
 func (f *etcd) Purge(ttl time.Duration) error {
-	panic("not implemented")
+	fmt.Println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NOTHING TO PURGE")
+	return nil
 }
