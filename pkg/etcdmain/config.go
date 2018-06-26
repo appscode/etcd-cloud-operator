@@ -238,6 +238,8 @@ func newConfig() *config {
 	fs.StringVar(&cfg.sc.Provider, "sco.snapshot-provider", cfg.sc.Provider, "Name of snapshot provider.")
 	fs.DurationVar(&cfg.sc.Interval, "eco.snapshot-interval", cfg.sc.Interval, "The interval between snapshots.")
 	fs.DurationVar(&cfg.sc.TTL, "eco.snapshot-ttl", cfg.sc.TTL, "TTL for old snapshots.")
+	fs.StringVar(&cfg.sc.ConfigFile, "eco.snapshot-config-file", cfg.sc.ConfigFile, "Path to snapshot config file.")
+	fs.StringVar(&cfg.sc.Bucket, "eco.snapshot-bucket", cfg.sc.Bucket, "Name of bucket where config is stored.")
 
 	fs.DurationVar(&cfg.UnhealthyMemberTTL, "eco.unhealthy-member-ttl", cfg.UnhealthyMemberTTL, "The time after which, an unhealthy member will be removed from the cluster.")
 	fs.BoolVar(&cfg.AutoDisasterRecovery, "eco.auto-disaster-recovery", cfg.AutoDisasterRecovery, "Defines whether the operator will attempt to seed a new cluster from a snapshot after the managed cluster has lost quorum")

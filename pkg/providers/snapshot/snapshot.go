@@ -42,8 +42,10 @@ type Config struct {
 	Interval time.Duration `json:"snapshot-interval"`
 	TTL      time.Duration `json:"snapshot-ttl"`
 
-	Provider string                 `json:"snapshot-provider"`
-	Params   map[string]interface{} `json:",inline"`
+	Provider   string                 `json:"snapshot-provider"`
+	ConfigFile string                 `json:"snapshot-config-file"`
+	Bucket     string                 `json:"snapshot-bucket"`
+	Params     map[string]interface{} `json:",inline"`
 }
 
 // Register makes a Provider available by the provided name.
