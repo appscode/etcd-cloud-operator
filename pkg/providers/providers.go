@@ -19,6 +19,9 @@ import (
 	"unsafe"
 
 	"github.com/ghodss/yaml"
+	"strings"
+	"fmt"
+	"net/url"
 )
 
 func ParseParams(params map[string]interface{}, cfg interface{}) error {
@@ -33,4 +36,26 @@ func ParseParams(params map[string]interface{}, cfg interface{}) error {
 	}
 
 	return nil
+}
+
+func ParseCluster(initialCluster string) (map[string]string, error) {
+	parts := strings.FieldsFunc(initialCluster, func(r rune) bool { return r == ',' || r == '=' })
+	n := len(parts)
+	if n == 0 || n%2 != 0 {
+		return nil, fmt.Errorf("invalid input %v", initialCluster)
+	}
+
+	instances := make(map[string]string, n/2+1)
+	for i := 0; i < n; i += 2 {
+		name := strings.TrimSpace(parts[i])
+		u, err := url.Parse(parts[i+1])
+		if err != nil {
+			return nil, fmt.Errorf("invalid url %s for instance %s", parts[i+1], name)
+		}
+		if _, ok := instances[name]; ok {
+			return nil, fmt.Errorf("instance name %s is found multiple times", name)
+		}
+		instances[name] = u.Hostname()
+	}
+	return instances, nil
 }
