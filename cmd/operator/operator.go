@@ -32,7 +32,6 @@ import (
 	_ "github.com/kubedb/etcd-cloud-operator/pkg/providers/asg/aws"
 	_ "github.com/kubedb/etcd-cloud-operator/pkg/providers/asg/docker"
 	_ "github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot/file"
-	_ "github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot/s3"
 )
 
 func main() {
