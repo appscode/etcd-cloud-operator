@@ -127,7 +127,7 @@ func (s *Operator) evaluate() error {
 
 	// Output.
 	if s.server == nil {
-		s.server = etcd.NewServer(serverConfig(s.cfg, asgSelf, s.snapshotProvider))
+		s.server = etcd.NewServer(serverConfig(s.cfg, asgSelf, s.snapshotProvider), s.asgProvider)
 	}
 
 	s.etcdRunning = s.server.IsRunning()

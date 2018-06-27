@@ -30,8 +30,11 @@ import (
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc/grpclog"
 
+	"github.com/kubedb/etcd-cloud-operator/pkg/providers/asg"
 	"github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot"
 	_ "github.com/kubedb/etcd-cloud-operator/pkg/providers/snapshot/etcd"
+	"net"
+	"net/url"
 )
 
 var ErrMemberRevisionTooOld = errors.New("member revision older than the minimum desired revision")
@@ -43,9 +46,10 @@ const (
 )
 
 type Server struct {
-	server    *embed.Etcd
-	isRunning bool
-	cfg       ServerConfig
+	server      *embed.Etcd
+	isRunning   bool
+	cfg         ServerConfig
+	asgProvider asg.Provider
 }
 
 type ServerConfig struct {
@@ -68,9 +72,10 @@ type ServerConfig struct {
 	initialPURLs map[string]string
 }
 
-func NewServer(cfg ServerConfig) *Server {
+func NewServer(cfg ServerConfig, asgProvider asg.Provider) *Server {
 	return &Server{
-		cfg: cfg,
+		cfg:         cfg,
+		asgProvider: asgProvider,
 	}
 }
 
@@ -391,6 +396,7 @@ func (c *Server) runMemberCleaner() {
 		name            string
 		firstSeen       time.Time
 		lastSeenHealthy time.Time
+		ClientURLs      []string
 	}
 	members := make(map[types.ID]*memberT)
 
@@ -410,7 +416,7 @@ func (c *Server) runMemberCleaner() {
 
 			// Register the member's first seen time if it's a new member.
 			if _, ok := members[member.ID]; !ok {
-				members[member.ID] = &memberT{name: member.Name, firstSeen: time.Now()}
+				members[member.ID] = &memberT{name: member.Name, ClientURLs: member.ClientURLs, firstSeen: time.Now()}
 			}
 
 			// Determine if the member is healthy and set the last time the member has been seen healthy.
@@ -447,6 +453,25 @@ func (c *Server) runMemberCleaner() {
 			}
 
 			delete(members, id)
+		}
+
+		if c.asgProvider != nil && c.asgProvider.UID() == "etcd" {
+			cache := make(map[string]string, len(members))
+			for _, member := range members {
+				for _, cu := range member.ClientURLs {
+					u, err := url.Parse(cu)
+					if err != nil {
+						continue
+					}
+					ip := net.ParseIP(u.Hostname())
+					if ip == nil || ip.IsLoopback() {
+						continue
+					}
+					cache[member.name] = ip.String()
+					break
+				}
+			}
+			c.asgProvider.Refresh(cache)
 		}
 	}
 }

@@ -98,3 +98,26 @@ func (d *etcd) AutoScalingGroupStatus() (instances []asg.Instance, self asg.Inst
 	size = d.config.Size
 	return
 }
+
+func (d *etcd) UID() string {
+	return "etcd"
+}
+
+func (d *etcd) Refresh(members map[string]string) error {
+	d.lock.Lock()
+	defer d.lock.Unlock()
+
+	for k, v := range members {
+		d.cache[k] = v
+	}
+
+	cluster := Cluster{
+		Instances: d.cache,
+		Size:      d.config.Size,
+	}
+	data, err := yaml.Marshal(&cluster)
+	if err != nil {
+		return err
+	}
+	return ioutil.WriteFile(d.config.CacheFile, data, 0600)
+}

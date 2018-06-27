@@ -32,6 +32,9 @@ type Provider interface {
 	Configure(Config) error
 
 	AutoScalingGroupStatus() ([]Instance, Instance, int, error)
+
+	UID() string
+	Refresh(map[string]string) error
 }
 
 // Config represents the configuration of the auto-scaling group provider.

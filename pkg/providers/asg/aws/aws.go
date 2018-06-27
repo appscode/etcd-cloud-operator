@@ -148,3 +148,11 @@ func (a *aws) describeASG() (*autoscaling.Group, []*ec2.Reservation, error) {
 
 	return asg.AutoScalingGroups[0], reservations.Reservations, nil
 }
+
+func (a *aws) UID() string {
+	return "aws"
+}
+
+func (a *aws) Refresh(map[string]string) error {
+	return nil
+}

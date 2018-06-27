@@ -67,3 +67,11 @@ func (d *docker) AutoScalingGroupStatus() (instances []asg.Instance, self asg.In
 
 	return
 }
+
+func (d *docker) UID() string {
+	return "docker"
+}
+
+func (d *docker) Refresh(map[string]string) error {
+	return nil
+}

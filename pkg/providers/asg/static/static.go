@@ -65,3 +65,11 @@ func (d *static) Configure(providerConfig asg.Config) error {
 func (d *static) AutoScalingGroupStatus() (instances []asg.Instance, self asg.Instance, size int, err error) {
 	return d.instances, d.self, len(d.instances), nil
 }
+
+func (d *static) UID() string {
+	return "static"
+}
+
+func (d *static) Refresh(map[string]string) error {
+	return nil
+}
